@@ -3,7 +3,8 @@
 中文、单用户、离线 Android App。首页提供信息论、通信原理、数字信号处理三个入口。Kotlin + Jetpack Compose + Room，Android 8.0（API 26）及以上。
 
 - 项目：https://github.com/otae4/information-theory-app
-- 当前版本：https://github.com/otae4/information-theory-app/releases/tag/v0.3.0
+- 当前源码版本：https://github.com/otae4/information-theory-app/tree/v0.3.0
+- 0.3.0 完整 APK 已在本机生成，尚未公开上传；当前公开安装包仍为 0.2.0：https://github.com/otae4/information-theory-app/releases/tag/v0.2.0
 - 安装包：`information-theory-0.3.0-debug.apk`，约 366 MB，包含全部阅读资料。
 
 ## 课程和资料范围
