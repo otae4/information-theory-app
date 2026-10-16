@@ -1,0 +1,64 @@
+# 验证记录
+
+日期：2026-10-16。版本：0.1.1（debug，versionCode 2），最低 Android 8.0 / API 26，compileSdk / targetSdk 35。
+
+## 0.1.1 资料阅读修复
+
+用户真机截图显示 PDF 页面正常出现，但翻页/跳页控件不可见。根因是自定义 View 的 `Canvas.drawColor` 在 AndroidView 未裁剪的画布中绘制，覆盖了上方控件。现在原生绘制显式限定到 View 矩形内，同时 Compose AndroidView 设置 `clipToBounds`。
+
+- 新增原生图形回归测试：在较大的画布中偏移绘制阅读器，检查四周保持原色、页面正常显示。修复前确实失败（上方控件区域被背景覆盖），修复后通过。
+- 新增 Compose 测试：打开课件、下一页、上一页、跳转到末页、末页禁止继续下一页、返回倒数第二页。
+- 完整构建、11 项 JVM/Robolectric 测试与 lint 均通过；lint 仍为 0 错误、15 警告。
+- `apksigner verify --print-certs` 校验新旧 APK 均通过，证书 SHA-256 完全相同；未修改数据库与备份结构。保留旧安装包供对照。
+- 本次未取得连接的真机/可用模拟器，修复后的实际手机显示、缩放与覆盖升级仍待确认。
+
+## 实际通过
+
+| 检查 | 结果 |
+|---|---|
+| `tools/build_local.ps1` | 最终运行 BUILD SUCCESSFUL，调试 APK 构建完成 |
+| JVM 规则测试 | 3 个通过：熵的边界与非法分布、数值判题、复习升级与失败重置 |
+| Robolectric 存储/内容测试 | 4 个通过：完整备份往返、事务失败回滚、损坏/重复/未知 ID/超大备份拒绝、课程引用与参数变式 |
+| Robolectric Compose 界面测试 | 3 个通过：新用户进入课程并开始练习、资料与复习导航、课件前后翻页和末页跳转 |
+| PDF 原生图形回归测试 | 1 个通过：阅读器不覆盖四周控件，页面正常绘制 |
+| 测试总计 | 11 个，0 失败，0 错误，0 跳过；设备模拟版本 API 28，属于 JVM 测试 |
+| Android lint | 0 错误、15 警告，未禁用或设置 baseline 隐藏问题 |
+| 内容结构检查 | 49 节、98 道题、235 页；ID 唯一、先修无环、题目关联、页码范围和 PDF 实际页数均通过 |
+| 原始教材一致性 | 应用内 `book.pdf` 与原件 SHA-256 相同 |
+| 数值例题 | 已检查代表性熵、马尔可夫、分块编码平均码长、GF(2) 长除法与全部 16 个 (7,4) 系统循环码编码 |
+| 离线公式与排版 | 49 节共 138 处 TeX 全部渲染成功，无 merror；412px 手机宽度页面无整体横向溢出，长公式在自身区域滚动；页面外网请求为 0 |
+| 资料版式抽查 | 9 个课件/教材页面渲染对照；扫描页保留原样，转换课件保留原始公式与布局 |
+| APK 权限 | 无 INTERNET 和外部存储权限；使用系统文件选择器手动读写备份 |
+| APK 签名 | apksigner 校验通过，APK Signature Scheme v2；不是生产发布签名 |
+
+Lint 警告：12 个可升级依赖提示、2 个 KTX 风格建议、1 个启用 JavaScript 的通用提示。JavaScript 仅用于本地 MathJax；无原生 JS 桥，文件与 content 访问禁用，WebView 网络请求仅由本地资产处理器响应，外部导航阻止。未进行完整依赖漏洞审计。
+
+Android 12+ 的云备份与设备迁移配置已显式排除应用数据；旧版本关闭 allowBackup。用户数据以手动导出为准。
+
+## 尚未完成的设备验证
+
+本机 Android Emulator 在初始化阶段未能正常启动；硬件、软件及英文路径尝试均未取得可用设备。因此 **没有宣称 instrumentation 测试或真实 APK 设备运行通过**。对应 Android 测试代码和测试 APK 已成功编译，后续连接手机后可运行 `tools/build_local.ps1 -DeviceTests`。
+
+仍需在手机上验证：
+
+1. 飞行模式打开课程，确认本地 MathJax、全部 PDF 和中文显示正常。
+2. 检查长公式左右滚动、PDF 双指缩放/拖动/跳页、小屏幕和系统大字体。
+3. 做题、标记完成、关闭重启，确认进度与错题保留。
+4. 通过系统文件选择器导出备份，再恢复，确认权限与文件提供者行为正常。
+5. 检查后台回收、旋转以及更新安装时的用户数据保留。
+
+Robolectric 不执行真实 Android WebView 的 JavaScript；公式由独立 Chromium 渲染检查覆盖，两者不能替代真机组合验证。
+
+## 内容审校边界
+
+资料完整收录，235 页均有主题位置；扫描教材已全量做本地 OCR。课程讲解和例题单独编写，修正若干原文中条件省略、单次/平均信息量混淆及公式记号问题。
+
+页码映射不是逐式人工审校证书，课程也不是教材全部原习题的逐题全解。长推导、扫描缺损与完整学科正确性仍建议由专业教师复核。
+
+## 报告与交付
+
+- 自动测试：`app/build/reports/tests/testDebugUnitTest/index.html`
+- Lint：`app/build/reports/lint-results-debug.html`
+- 页面检查：父目录 `build-content/visual-check/render-report.json`
+- 页面覆盖：`CONTENT_COVERAGE.md`
+- 安装包与校验值：`dist/information-theory-0.1.1-debug.apk`、`dist/SHA256SUMS.txt`；旧版 0.1.0 留存供对照。

@@ -1,0 +1,21 @@
+.gradle/
+.kotlin/
+local.properties
+**/build/
+*.iml
+.idea/
+dist/
+*.apk
+*.aab
+*.jks
+*.keystore
+keystore.properties
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+# Original course documents remain local; the published APK is managed in Releases.
+*.pdf
+*.ppt
+*.pptx

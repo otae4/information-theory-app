@@ -1,0 +1,22 @@
+第三方开源组件
+
+MathJax 3.2.2 — Apache License 2.0
+Copyright (c) 2009–2022 The MathJax Consortium
+本应用本地内置 tex-svg-full.js，不使用 CDN。完整许可证见 mathjax/LICENSE。
+Source: https://github.com/mathjax/MathJax/tree/3.2.2
+
+AndroidX（Compose、Activity、Lifecycle、Room、WebKit）— Apache License 2.0
+Copyright The Android Open Source Project
+Source: https://android.googlesource.com/platform/frameworks/support/
+
+Kotlin、Kotlin Coroutines — Apache License 2.0
+Copyright JetBrains s.r.o. and Kotlin Programming Language contributors
+Source: https://github.com/JetBrains/kotlin
+Source: https://github.com/Kotlin/kotlinx.coroutines
+
+Apache License 2.0 text: licenses/Apache-2.0.txt
+
+课程来源
+五份本地 PowerPoint 课件与《信息与编码理论基础》（万旺根、余小清编著，上海大学出版社）。
+教材与课件不因所用软件开源而获得再分发授权，请仅在已有授权范围内使用。
+新增课程讲解与例题为本项目整理内容；OCR 转写保存在开发目录，未当作已校对的公式原文发布。
