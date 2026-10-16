@@ -49,10 +49,23 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StudyApp(model: StudyModel = viewModel()) {
-    val course = model.course
-    val progress by model.progress.collectAsStateWithLifecycle()
-    val reviews by model.reviews.collectAsStateWithLifecycle()
-    val attempts by model.attemptCount.collectAsStateWithLifecycle()
+    var subject by rememberSaveable { mutableStateOf<String?>(null) }
+    if(subject==null) {
+        SubjectPicker(model.courses) { subject=it }
+    } else key(subject) {
+        SubjectStudyApp(model.courses.getValue(subject!!),model) { subject=null }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SubjectStudyApp(course: Course, model: StudyModel, onSubjects:()->Unit) {
+    val allProgress by model.progress.collectAsStateWithLifecycle()
+    val allReviews by model.reviews.collectAsStateWithLifecycle()
+    val allAttempts by model.attempts.collectAsStateWithLifecycle()
+    val progress = allProgress.filter { it.lessonId in course.progressIds }
+    val reviews = allReviews.filter { it.questionId in course.questionById }
+    val attempts = allAttempts.count { it.questionId in course.questionById }
     val scope = rememberCoroutineScope()
     val snack = remember { SnackbarHostState() }
     var stack by rememberSaveable { mutableStateOf(listOf("home")) }
@@ -94,21 +107,21 @@ fun StudyApp(model: StudyModel = viewModel()) {
             backupBusy=true
             val result=withContext(Dispatchers.IO) { runCatching {
                 val text=context.contentResolver.openInputStream(uri)?.use(Backup::readLimited) ?: error("无法读取备份")
-                Backup.decode(text,course.progressIds,course.questionById.keys,course.version)
+                Backup.decode(text,model.progressIds,model.questionIds,model.dataVersion)
             } }
             backupBusy=false
             result.onSuccess { importCandidate=it }.onFailure { message("备份未导入：${it.message}") }
         }
     }
-    BackHandler(stack.size>1) { back() }
+    BackHandler { if(stack.size>1) back() else onSubjects() }
     Scaffold(
         topBar={ TopAppBar(title={ Column {
             Text(when(parts[0]) { "lesson" -> course.lessonById[parts[1]]?.title ?: "学习"; "quiz" -> "专注练习";
-                "homework" -> "作业一 · 第${course.homeworkById[parts[1]]?.number}题";
-                "pdf" -> course.documentById[parts[1]]?.title ?: "资料"; "coverage" -> "资料覆盖清单"; "licenses" -> "关于与开源许可"; else -> "信息论自习室" },
+                "homework" -> course.homeworkById[parts[1]]?.let { "${it.assignment} · 第${it.number}题" } ?: "作业";
+                "pdf" -> course.documentById[parts[1]]?.title ?: "资料"; "coverage" -> "资料覆盖清单"; "licenses" -> "关于与开源许可"; else -> course.title },
                 style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)
             if(route=="home") Text("从理解开始，把知识留下来",style=MaterialTheme.typography.labelMedium,color=palette.primary)
-        } }, navigationIcon={if(stack.size>1) TextButton(onClick={back()}){Text("返回")}},
+        } }, navigationIcon={TextButton(onClick={if(stack.size>1) back() else onSubjects()}){Text(if(stack.size>1) "返回" else "学科")}},
             colors=TopAppBarDefaults.topAppBarColors(containerColor=palette.background)) },
         bottomBar={if(route=="home") NavigationBar(containerColor=Color.White) {
             listOf("学习","练习","作业","复习","资料").forEachIndexed { i,title ->
@@ -127,12 +140,12 @@ fun StudyApp(model: StudyModel = viewModel()) {
                         onExport={scope.launch {
                             backupBusy=true
                             val result=withContext(Dispatchers.IO){runCatching {
-                                Backup.encode(Backup.snapshot(model.db),course.version).also {
+                                Backup.encode(Backup.snapshot(model.db),model.dataVersion).also {
                                     java.io.File(context.cacheDir,"pending-backup.json").writeText(it,Charsets.UTF_8)
                                 }
                             }}
                             backupBusy=false
-                            result.onSuccess {pendingBackup=it;exportLauncher.launch("信息论学习备份-${LocalDate.now()}.json")}
+                            result.onSuccess {pendingBackup=it;exportLauncher.launch("三科学习备份-${LocalDate.now()}.json")}
                                 .onFailure {message("备份失败：${it.message}")}
                         }},onImport={importLauncher.launch(arrayOf("application/json","application/octet-stream","text/plain"))})
                 }
@@ -155,6 +168,7 @@ fun StudyApp(model: StudyModel = viewModel()) {
                     HomeworkDetailScreen(problem,course,progress.any { it.lessonId==problem.id && it.completed },
                         onComplete={model.completeHomework(problem.id,it)},
                         onLesson={model.openLesson(it);push("lesson|$it")},
+                        onSource={push("pdf|${it.document}|${it.page}")},
                         onProblem={stack=stack.dropLast(1)+"homework|$it"})
                 }
                 "pdf" -> course.documentById[parts[1]]?.let { PdfReader(it,parts[2].toInt(),Modifier.fillMaxSize()) }
@@ -163,7 +177,7 @@ fun StudyApp(model: StudyModel = viewModel()) {
             } }
         }
     }
-    importCandidate?.let { data -> AlertDialog(onDismissRequest={importCandidate=null},title={Text("恢复学习备份")},
+    importCandidate?.let { data -> AlertDialog(onDismissRequest={importCandidate=null},title={Text("恢复全部学科学习备份")},
         text={Text("此备份包含 ${data.progress.size} 条学习记录、${data.reviews.size} 条复习记录和 ${data.attempts.size} 次答题。恢复将替换当前记录，建议先导出当前备份。")},
         confirmButton={TextButton(onClick={importCandidate=null;scope.launch {
             val result=withContext(Dispatchers.IO){runCatching{Backup.restore(model.db,data)}}
@@ -185,7 +199,7 @@ private fun LearnScreen(course: Course, progress: List<Progress>, reviews: List<
                 LinearProgressIndicator(progress={completed.size.toFloat()/course.lessons.size},modifier=Modifier.fillMaxWidth(),color=Color(0xFF72DDD0),trackColor=Color(0xFF31525A))
                 Text("已完成 ${completed.size}/${course.lessons.size} 节 · 已练习 $attempts 次",color=Color.White)
                 Button(onClick={onLesson(last)},colors=ButtonDefaults.buttonColors(containerColor=Color(0xFF72DDD0),contentColor=Color(0xFF102F3A))) {
-                    Text(if(lessonProgress.isEmpty()) "从预备知识开始" else "继续：${course.lessonById[last]?.title}")
+                    Text(if(lessonProgress.isEmpty()) "从${if(course.subject=="info") "预备知识" else "第一节"}开始" else "继续：${course.lessonById[last]?.title}")
                 }
             }
         } }
@@ -227,7 +241,7 @@ private fun LessonScreen(lesson: Lesson, course: Course, complete: Boolean, onCo
             lesson.prerequisites.forEach { id -> AssistChip(onClick={onPrerequisite(id)},label={Text("先修 · ${course.lessonById[id]?.title}")}) }
         }
         if(lesson.sources.isNotEmpty()) Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal=16.dp),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-            lesson.sources.forEach { source -> TextButton(onClick={onSource(source)}) { Text("${if(source.document=="book") "教材" else "课件"} 第${source.page}页") } }
+            lesson.sources.forEach { source -> TextButton(onClick={onSource(source)}) { Text("${course.documentById[source.document]?.title ?: "资料"} · 第${source.page}页") } }
         }
         FormulaReader(lesson.html,Modifier.fillMaxWidth().weight(1f))
         Row(Modifier.fillMaxWidth().padding(16.dp),horizontalArrangement=Arrangement.spacedBy(12.dp)) {
@@ -355,10 +369,12 @@ private fun ReviewScreen(course:Course,reviews:List<Review>,onQuiz:(List<String>
 
 @Composable
 private fun MaterialsScreen(course:Course,busy:Boolean,onDocument:(Document)->Unit,onCoverage:()->Unit,onAbout:()->Unit,onExport:()->Unit,onImport:()->Unit) {
+    var query by rememberSaveable { mutableStateOf("") }
     LazyColumn(contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
         item {Text("资料始终在身边",style=MaterialTheme.typography.headlineSmall,fontWeight=FontWeight.Bold)}
-        item {Text("5 份课件共 111 页，教材 124 页。页码为 PDF 物理页码，教材印刷页码通常小 6。扫描页支持双指缩放。")} 
-        items(course.documents,key={it.id}) {d->ActionCard(d.title,"${d.pages} 页 · 本地完整收录"){onDocument(d)}}
+        item {Text("${course.title} · ${course.documents.size} 份阅读资料，共 ${course.documents.sumOf { it.pages }} 页。页码均为 PDF 物理页码；与教材印刷页码可能不同。支持翻页、跳页和双指缩放。")}
+        item { OutlinedTextField(value=query,onValueChange={query=it},label={Text("搜索资料名称或章节")},modifier=Modifier.fillMaxWidth(),singleLine=true) }
+        items(course.documents.filter { query.isBlank() || it.title.contains(query,true) || it.kind.contains(query) },key={it.id}) {d->ActionCard(d.title,"${d.kind} · ${d.pages} 页 · 本地完整收录"){onDocument(d)}}
         item {ActionCard("资料覆盖清单","逐页查看课程关联，共 ${course.coverage.size} 页",onCoverage)}
         item {Text("学习数据",style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)}
         item {Text("数据只保存在本机。卸载应用会删除记录；换机或卸载前请手动导出备份。")} 
@@ -375,10 +391,10 @@ private fun CoverageScreen(course:Course,onDocument:(String,Int)->Unit,onLesson:
     var selected by rememberSaveable {mutableStateOf(course.documents.first().id)}
     Column {
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal=16.dp),horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-            course.documents.forEach {d->FilterChip(selected=selected==d.id,onClick={selected=d.id},label={Text(if(d.id=="book")"教材" else "课件 ${d.id.drop(1)}")})}
+            course.documents.forEach {d->FilterChip(selected=selected==d.id,onClick={selected=d.id},label={Text(d.title)})}
         }
         LazyColumn(contentPadding=PaddingValues(16.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
-            item {Text("映射表示该页主题的讲解位置。原资料推导与习题可在原页对照阅读。",style=MaterialTheme.typography.bodySmall)}
+            item {Text("各页提供章节或知识点讲解入口，不代表逐式讲解。完整推导、原题和图表请在原页对照阅读。",style=MaterialTheme.typography.bodySmall)}
             items(course.coverage.filter {it.document==selected},key={"${it.document}:${it.page}"}) {p->
                 Card(colors=CardDefaults.cardColors(containerColor=Color.White)) {
                     Column(Modifier.padding(16.dp)) {
@@ -407,8 +423,8 @@ private fun AboutScreen() {
     val context=androidx.compose.ui.platform.LocalContext.current
     val licenses=remember {context.assets.open("NOTICE.txt").bufferedReader().use{it.readText()}}
     LazyColumn(contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
-        item {Text("信息论自习室 · 0.2.0",style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)}
-        item {Text("依据本地课件及《信息与编码理论基础》（万旺根、余小清）整理，并补充先修知识、例题与解析。课程采用统一符号与必要的原文勘误。原始资料完整保留，OCR 仅用于内容整理，不直接作为公式展示来源。")} 
+        item {Text("三科学习室 · 0.3.0",style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)}
+        item {Text("信息论、通信原理与数字信号处理，依据本机课件、笔记、作业和教材整理。学习区提供基础讲解和例题，完整资料可在各学科资料页阅读。课件转换为阅读副本，原始文件不改写。扫描材料与公式应以原页核对。")}
         item {Text("本应用以个人离线学习为目的。公开分发前应另行核实教材和课件授权。当前课程属于初版讲解，原书的长推导请结合来源页阅读。")} 
         item {Text(licenses,style=MaterialTheme.typography.bodySmall)}
     }

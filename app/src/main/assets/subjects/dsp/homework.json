@@ -1,0 +1,188 @@
+{
+  "courseVersion": 3,
+  "title": "课程作业 · 按原题顺序",
+  "chapterNote": "作业与日常练习分开。按资料中已有的章节归类；原题、图表和完整详解可在题内直接打开。未标明的分值不另行编造。",
+  "sources": [
+    {
+      "name": "第一章作业详解"
+    }
+  ],
+  "problems": [
+    {
+      "id": "dsp-hw-1",
+      "number": 1,
+      "title": "1.1 有限长指数与右边指数卷积",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-convolution"
+      ],
+      "promptHtml": "<section><h2>1.1 有限长指数与右边指数卷积</h2><p>h[n]=αⁿR_N[n]，x[n]=β^(n−n₀)u[n−n₀]。求卷积，分别处理α=β与α≠β。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>令r=n−n₀，r&lt;0时为0；其余取L=min(N−1,r)，求和\\(\\sum_{k=0}^L\\alpha^k\\beta^{r-k}\\)。相等底数时为(L+1)a^r。完整分段公式与边界约定见详解第1页。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 68
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 1
+      }
+    },
+    {
+      "id": "dsp-hw-2",
+      "number": 2,
+      "title": "1.2 五组卷积与输出图",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-convolution"
+      ],
+      "promptHtml": "<section><h2>1.2 五组卷积与输出图</h2><p>完成原题五组输入和冲激响应的卷积并画图，保留移位、双边序列和阶跃的原始定义。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>结果依次涉及矩形恒等响应、[1,2,3,3,2,1]、延迟后[1,1/2,1/4]、双边衰减响应，以及n=1至3幅度0.8的矩形。原题完整数据及所有输出图见对应详解第2～6页。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 68
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 2
+      }
+    },
+    {
+      "id": "dsp-hw-3",
+      "number": 3,
+      "title": "1.4 周期性与基本周期",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-period"
+      ],
+      "promptHtml": "<section><h2>1.4 周期性与基本周期</h2><p>逐项判断9个序列是否周期，并求存在时的最小正整数周期。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>非退化指数先把ω/(2π)约成有理数；无理则非周期。前两项周期14、6；第8项周期56，第9项周期7。其余需区分无理频率、衰减包络、退化零项。详解保留9个原式及逐项证明。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 69
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 7
+      }
+    },
+    {
+      "id": "dsp-hw-4",
+      "number": 4,
+      "title": "1.6 线性与移不变性",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-properties"
+      ],
+      "promptHtml": "<section><h2>1.6 线性与移不变性</h2><p>对原题5个系统分别检验线性、移不变，特别区分幅度平方与索引平方。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>累加器：线性且移不变；幅度平方：非线性但移不变；时变正弦增益、反折和平方索引：线性但移变。不能把x[n²]误读为x[n]²。详解第11～12页给出反例。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 69
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 11
+      }
+    },
+    {
+      "id": "dsp-hw-5",
+      "number": 5,
+      "title": "1.7 四种系统性质",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-properties"
+      ],
+      "promptHtml": "<section><h2>1.7 四种系统性质</h2><p>完成指定小问（1）、（5）、（10），分别检验线性、移不变、因果与稳定。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>逐项以原题为准。第（10）项输出u[n]/n与输入无关，不是增益乘输入；n=0未定义，须先说明补定义后再讨论稳定性。完整原式、条件与证明见详解第13～14页。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 69
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 13
+      }
+    },
+    {
+      "id": "dsp-hw-6",
+      "number": 6,
+      "title": "1.8 由h[n]判断因果与稳定",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-properties"
+      ],
+      "promptHtml": "<section><h2>1.8 由h[n]判断因果与稳定</h2><p>对原题8种单位抽样响应分别判断因果性与BIBO稳定性。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>因果看负索引是否为零，稳定看绝对和。δ[n+4]非因果但稳定；u[4−n]幅度有界但不稳定。u[n]/n²在零点缺定义，不能只以正整数尾和收敛就直接下结论。详解第15～17页包含全部8项。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 69
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 15
+      }
+    },
+    {
+      "id": "dsp-hw-7",
+      "number": 7,
+      "title": "1.13 框图、差分方程与输出",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-difference"
+      ],
+      "promptHtml": "<section><h2>1.13 框图、差分方程与输出</h2><p>由教材图P1.13列差分方程；y[n]=0(n&lt;0)，输入u[n]，求输出并画图。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>命名内部节点：v[n]=x[n]+v[n−1]/4，y[n]=v[n]+v[n−1]。消元得y[n]−y[n−1]/4=x[n]+x[n−1]。\\(y[n]=(8/3-(5/3)(1/4)^n)u[n]\\)。图、首值和递推自检见详解第18～20页。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 70
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 18
+      }
+    },
+    {
+      "id": "dsp-hw-8",
+      "number": 8,
+      "title": "1.14 因果系统与双边复指数",
+      "chapter": "dsp-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "dsp-difference"
+      ],
+      "promptHtml": "<section><h2>1.14 因果系统与双边复指数</h2><p>y[n]−y[n−1]/2=x[n]+x[n−1]/2。求h[n]及输入e^(jωn)的零状态响应。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>\\(h[n]=\\delta[n]+(1/2)^{n-1}u[n-1]\\)。双边复指数输出为\\(\\frac{1+(1/2)e^{-j\\omega}}{1-(1/2)e^{-j\\omega}}e^{j\\omega n}\\)，不能擅自给输入加u[n]；详解第21～22页说明与参考书口径差异。</p></section>",
+      "assignment": "第一章作业",
+      "source": {
+        "document": "dsp-doc-065",
+        "page": 70
+      },
+      "solution": {
+        "document": "dsp-doc-067",
+        "page": 21
+      }
+    }
+  ]
+}

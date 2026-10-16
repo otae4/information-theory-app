@@ -10,6 +10,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextReplacement
 import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -21,6 +22,7 @@ import org.robolectric.annotation.LooperMode
 @LooperMode(LooperMode.Mode.PAUSED)
 class MainActivityUiTest {
     @get:Rule val compose=createAndroidComposeRule<MainActivity>()
+    @Before fun selectInformationTheory() { compose.onNodeWithText("信息论").performClick() }
 
     @Test fun newLearnerCanOpenLessonAndItsQuestions() {
         compose.onNodeWithText("从预备知识开始").performClick()

@@ -11,11 +11,16 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class StudyModel(app: Application) : AndroidViewModel(app) {
-    val course = Course(app)
+    val courses = subjectNames.keys.associateWith { Course(app,it) }
+    val course = courses.getValue("info")
+    val progressIds = courses.values.flatMap { it.progressIds }.toSet()
+    val questionIds = courses.values.flatMap { it.questionById.keys }.toSet()
+    val dataVersion = maxOf(3,courses.values.maxOf { it.version })
     val db = Room.databaseBuilder(app, StudyDatabase::class.java, "study.db").build()
     val progress = db.dao().observeProgress().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     val reviews = db.dao().observeReviews().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     val attemptCount = db.dao().observeAttemptCount().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+    val attempts = db.dao().observeAttempts().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun openLesson(id: String) = viewModelScope.launch {
         db.withTransaction {
@@ -32,7 +37,7 @@ class StudyModel(app: Application) : AndroidViewModel(app) {
     }
 
     suspend fun completeHomework(id: String, completed: Boolean) {
-        require(id in course.homeworkById)
+        require(courses.values.any { id in it.homeworkById })
         db.withTransaction {
             db.dao().saveProgress(Progress(id, completed, System.currentTimeMillis()))
         }

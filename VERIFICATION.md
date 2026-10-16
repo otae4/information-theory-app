@@ -1,6 +1,31 @@
 # 验证记录
 
-日期：2026-10-16。版本：0.2.0（debug，versionCode 3），最低 Android 8.0 / API 26，compileSdk / targetSdk 35。
+日期：2026-10-16。当前版本：0.3.0（debug，versionCode 4），最低 Android 8.0 / API 26，compileSdk / targetSdk 35。
+
+## 0.3.0 三科学习室
+
+首页三个入口：信息论、通信原理、数字信号处理。包名、原调试签名和 Room 表结构版本 1 保持不变；信息论的原有 ID 与记录保留。新增学科使用独立 ID 前缀，课程、作业、答题、错题和复习均按学科筛选；备份统一保存三科，课程备份数据版本 3，兼容原版本 1/2 的信息论备份。
+
+| 学科 | 学习单元 | 配套练习 | 作业组/大题 | PDF | 页数 |
+|---|---:|---:|---:|---:|---:|
+| 信息论 | 49 | 98 | 4 | 6 | 235 |
+| 通信原理 | 11 | 22 | 7 | 8 | 145 |
+| 数字信号处理 | 23 | 46 | 8 | 67 | 1989 |
+
+通信原理只对应现有第 1、3 章，没有虚构缺失章节。数字信号处理包括全部 62 份 PPT 阅读副本、563 页教材、366 页习题参考书，以及 2 份笔记与 23 页作业详解。已有 PDF 的 4 份通信原理 Word 对应文件不重复收录，隐藏构建目录不当作课程材料。原文件均只读打开，不改写。
+
+本次实际通过：
+
+- `tools/build_local.ps1` 构建、17 项 JVM/Robolectric 测试、lint 均成功。6 个测试类：规则 3、存储 4、PDF 裁剪 1、原作业 2、原界面 4、三学科 3；0 失败、0 错误。三科测试覆盖入口切换、不同学科作业隔离、旧备份兼容、全局 ID 与来源校验。
+- Lint：0 错误、15 警告，与此前类别相同。
+- `tools/check_subjects.py`：81 份 PDF、2369 页全部页数及引用检查通过；62 份 PPT 导出页数与原始幻灯片数相同；直接复制的 10 份新增 PDF 与原文件 SHA-256 一致。
+- `tools/check_render.mjs`：83 节课程和 19 道/组作业，共 255 处公式，无 MathJax 错误、无外网请求；412px 宽度无整页横向溢出。代表性三科学习页面和 6 个课件/教材/详解 PDF 页面已目视检查。
+- APK 约 366 MB；签名证书与旧版相同，可以覆盖升级。原始 PDF、PPT、Word 和签名密钥不单独进入公开源码历史。
+- 验证环境：本机 Java 在受限启动环境下会把 user.home 设为 C 盘根目录。测试锁文件现放入 app/build，复用实际用户 Maven SDK 缓存；构建用一次性 Gradle 进程避免继承旧进程的受限权限。最终验证使用完整可读的现有依赖缓存，没有跳过测试或禁用检查。
+
+未完成真实手机的新增入口、366 MB 安装过程和长教材阅读验证。没有宣称真实 APK 设备运行通过；Robolectric 与 Chromium 不代替真机验证。新增讲解是核心路线，资料导航为章节级关联，不是全书逐页逐式讲解或教师审校。
+
+以下为之前版本的历史验证记录。
 
 ## 0.2.0 独立作业
 
@@ -73,4 +98,4 @@ Robolectric 不执行真实 Android WebView 的 JavaScript；公式由独立 Chr
 - Lint：`app/build/reports/lint-results-debug.html`
 - 页面检查：父目录 `build-content/visual-check/render-report.json`
 - 页面覆盖：`CONTENT_COVERAGE.md`
-- 安装包与校验值：`dist/information-theory-0.2.0-debug.apk`、`dist/SHA256SUMS.txt`；旧版留存供对照。
+- 当前安装包与校验值：`dist/information-theory-0.3.0-debug.apk`、`dist/SHA256SUMS.txt`；旧版留存供对照。

@@ -1,0 +1,180 @@
+{
+  "courseVersion": 3,
+  "title": "课程作业 · 按原题顺序",
+  "chapterNote": "作业与日常练习分开。按资料中已有的章节归类；原题、图表和完整详解可在题内直接打开。未标明的分值不另行编造。",
+  "sources": [
+    {
+      "name": "作业一"
+    },
+    {
+      "name": "作业一_详细解答"
+    },
+    {
+      "name": "作业二"
+    },
+    {
+      "name": "作业二_详细解答"
+    }
+  ],
+  "problems": [
+    {
+      "id": "comm-hw-1",
+      "number": 1,
+      "title": "字母编码与平均信息速率",
+      "chapter": "comm-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "comm-entropy",
+        "comm-rate"
+      ],
+      "promptHtml": "<section><h2>字母编码与平均信息速率</h2><p>A/B/C/D 分别编码为00/01/10/11，每个脉冲5ms。求等概率与概率(1/5,1/4,1/4,3/10)时的平均信息速率。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>字母速率为100 symbol/s。等概率熵2 bit/字母，速率200 bit/s。非等概率熵1.985475297 bit/字母，平均速率198.5475297 bit/s。编码后的二进制位流仍为200 bit/s。</p></section>",
+      "assignment": "作业一",
+      "source": {
+        "document": "comm-doc-008",
+        "page": 1
+      },
+      "solution": {
+        "document": "comm-doc-007",
+        "page": 1
+      }
+    },
+    {
+      "id": "comm-hw-2",
+      "number": 2,
+      "title": "一小时的信息量与最大信息量",
+      "chapter": "comm-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "comm-entropy",
+        "comm-rate"
+      ],
+      "promptHtml": "<section><h2>一小时的信息量与最大信息量</h2><p>五符号概率(1/4,1/8,1/8,3/16,5/16)，速率1000B，求一小时平均信息量及可达到的最大平均信息量。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>B指baud而非字节。H=2.227217001 bit/符号，一小时有3600000个符号，信息量约8017981.205 bit。最大熵log₂5，对应8358941.142 bit。独立符号条件不可省略。</p></section>",
+      "assignment": "作业一",
+      "source": {
+        "document": "comm-doc-008",
+        "page": 1
+      },
+      "solution": {
+        "document": "comm-doc-007",
+        "page": 2
+      }
+    },
+    {
+      "id": "comm-hw-3",
+      "number": 3,
+      "title": "四进制系统的码元差错率",
+      "chapter": "comm-c1",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "promptHtml": "<section><h2>四进制系统的码元差错率</h2><p>四进制传信率2400bit/s，半小时内216个错误码元，求课件定义的误码率Pe。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>每码元2bit，Rs=1200 Baud。总码元数1200×1800=2160000，Pe=216/2160000=10⁻⁴。此处不是误比特率，不能用错误码元数除以总比特数。</p></section>",
+      "assignment": "作业一",
+      "source": {
+        "document": "comm-doc-008",
+        "page": 1
+      },
+      "solution": {
+        "document": "comm-doc-007",
+        "page": 3
+      }
+    },
+    {
+      "id": "comm-hw-4",
+      "number": 1,
+      "title": "双径衰落的零点与峰值",
+      "chapter": "comm-c3",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "comm-multipath"
+      ],
+      "promptHtml": "<section><h2>双径衰落的零点与峰值</h2><p>等幅双径信道时差τ=1ms，求最大衰耗频率及传输最有利频率。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>\\(H(f)=2e^{-j\\pi f\\tau}\\cos(\\pi f\\tau)\\)。最大衰耗在(2k+1)×500Hz，峰值在k×1000Hz；有利频段位于峰值附近，具体带宽还取决于允许的衰减。</p></section>",
+      "assignment": "作业二",
+      "source": {
+        "document": "comm-doc-006",
+        "page": 1
+      },
+      "solution": {
+        "document": "comm-doc-005",
+        "page": 1
+      }
+    },
+    {
+      "id": "comm-hw-5",
+      "number": 2,
+      "title": "时延扩展与码元宽度",
+      "chapter": "comm-c3",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "comm-coherence"
+      ],
+      "promptHtml": "<section><h2>时延扩展与码元宽度</h2><p>最大多径时延差2μs，估算避免频率选择性衰落的码元脉冲宽度。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>按课件工程口径Bc≈1/Δτ=500kHz，Bs约取Bc的1/5至1/3，并取Bs≈1/Ts，则Ts约为6～10μs。不是唯一精确下限。</p></section>",
+      "assignment": "作业二",
+      "source": {
+        "document": "comm-doc-006",
+        "page": 1
+      },
+      "solution": {
+        "document": "comm-doc-005",
+        "page": 2
+      }
+    },
+    {
+      "id": "comm-hw-6",
+      "number": 3,
+      "title": "电话信道容量与所需信噪比",
+      "chapter": "comm-c3",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "promptHtml": "<section><h2>电话信道容量与所需信噪比</h2><p>B=3.4kHz，求30dB信噪比下容量；若传输33.6kbit/s，求理论最小接收信噪比dB。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>先换成线性功率比1000。\\(C=3400\\log_2(1001)=33888.57\\) bit/s。反求\\(10\\log_{10}(2^{33600/3400}-1)=29.744\\)dB；工程系统需留裕量。</p></section>",
+      "assignment": "作业二",
+      "source": {
+        "document": "comm-doc-006",
+        "page": 1
+      },
+      "solution": {
+        "document": "comm-doc-005",
+        "page": 3
+      }
+    },
+    {
+      "id": "comm-hw-7",
+      "number": 4,
+      "title": "图像传输的最小带宽",
+      "chapter": "comm-c3",
+      "relatedChapters": [],
+      "points": 0,
+      "lessons": [
+        "comm-entropy",
+        "comm-capacity"
+      ],
+      "promptHtml": "<section><h2>图像传输的最小带宽</h2><p>每幅6×10⁵像素，每像素16个等概率亮度电平，每秒24幅，输出信噪比30dB，求所需理论最小带宽。</p></section>",
+      "solutionHtml": "<section><h2>解题路径与核对</h2><p>按未压缩、独立等概率像素信息与无额外开销计算，R=6×10⁵×4×24=57.6Mbit/s。\\(B=R/\\log_2(1001)\\approx5.780\\)MHz。</p></section>",
+      "assignment": "作业二",
+      "source": {
+        "document": "comm-doc-006",
+        "page": 1
+      },
+      "solution": {
+        "document": "comm-doc-005",
+        "page": 4
+      }
+    }
+  ]
+}

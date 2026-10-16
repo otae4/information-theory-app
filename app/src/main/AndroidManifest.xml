@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application android:allowBackup="false" android:fullBackupContent="false"
-        android:dataExtractionRules="@xml/data_extraction_rules" android:label="信息论自习室"
+        android:dataExtractionRules="@xml/data_extraction_rules" android:label="三科学习室"
         android:icon="@drawable/ic_launcher" android:supportsRtl="true"
         android:theme="@style/AppTheme" android:usesCleartextTraffic="false">
         <activity android:name=".MainActivity" android:exported="true">

@@ -1,0 +1,2295 @@
+{
+  "version": 3,
+  "chapters": [
+    {
+      "id": "comm-c1",
+      "title": "第1章 绪论",
+      "subtitle": "消息、信息、信号与系统模型"
+    },
+    {
+      "id": "comm-c3",
+      "title": "第3章 信道",
+      "subtitle": "信道特性、衰落、噪声与容量"
+    }
+  ],
+  "documents": [
+    {
+      "id": "comm-doc-003",
+      "title": "第1章 绪论 · 完整课件",
+      "asset": "documents/comm/comm-doc-003.pdf",
+      "pages": 59,
+      "kind": "课件",
+      "chapter": "comm-c1"
+    },
+    {
+      "id": "comm-doc-002",
+      "title": "第一章_绪论_学习笔记",
+      "asset": "documents/comm/comm-doc-002.pdf",
+      "pages": 8,
+      "kind": "笔记",
+      "chapter": "comm-c1"
+    },
+    {
+      "id": "comm-doc-008",
+      "title": "作业一",
+      "asset": "documents/comm/comm-doc-008.pdf",
+      "pages": 1,
+      "kind": "作业",
+      "chapter": "comm-c1"
+    },
+    {
+      "id": "comm-doc-007",
+      "title": "作业一_详细解答",
+      "asset": "documents/comm/comm-doc-007.pdf",
+      "pages": 3,
+      "kind": "作业",
+      "chapter": "comm-c1"
+    },
+    {
+      "id": "comm-doc-004",
+      "title": "第3章 信道 · 完整课件",
+      "asset": "documents/comm/comm-doc-004.pdf",
+      "pages": 63,
+      "kind": "课件",
+      "chapter": "comm-c3"
+    },
+    {
+      "id": "comm-doc-001",
+      "title": "第三章_信道_学习笔记",
+      "asset": "documents/comm/comm-doc-001.pdf",
+      "pages": 6,
+      "kind": "笔记",
+      "chapter": "comm-c3"
+    },
+    {
+      "id": "comm-doc-006",
+      "title": "作业二",
+      "asset": "documents/comm/comm-doc-006.pdf",
+      "pages": 1,
+      "kind": "作业",
+      "chapter": "comm-c3"
+    },
+    {
+      "id": "comm-doc-005",
+      "title": "作业二_详细解答",
+      "asset": "documents/comm/comm-doc-005.pdf",
+      "pages": 4,
+      "kind": "作业",
+      "chapter": "comm-c3"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "comm-concept",
+      "chapter": "comm-c1",
+      "title": "消息、信息和信号",
+      "summary": "消息是要表达的内容，信号是承载它的物理形式，信息是接收者得到的不确定性的消除。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>消息是要表达的内容，信号是承载它的物理形式，信息是接收者得到的不确定性的消除。</p></section><section><h2>定义与条件</h2><p>数字信号看承载信息的状态是否离散，不能只看时间是否连续。</p></section><section><h2>完整例题</h2><p>用两种电压表示 0、1，承载信息的电压状态数为 2。</p></section><section><h2>容易混淆的地方</h2><p>未量化抽样信号的幅度仍可连续，不因时间抽样就成为数字信号。</p></section>",
+      "prerequisites": [],
+      "sources": [
+        {
+          "document": "comm-doc-003",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-system",
+      "chapter": "comm-c1",
+      "title": "通信系统与编码模块",
+      "summary": "发送端把消息变成波形，信道使其衰减或受扰，接收端恢复消息。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>发送端把消息变成波形，信道使其衰减或受扰，接收端恢复消息。</p></section><section><h2>定义与条件</h2><p>信源编码用于表示与压缩；信道编码加入可控冗余用于抗差错；调制把符号映射成适合传输的波形。</p></section><section><h2>完整例题</h2><p>四个等可能符号用固定二进制字表示，每个字至少需 2 bit。</p></section><section><h2>容易混淆的地方</h2><p>译码应按与发送处理相配的逆序恢复；压缩编码与纠错编码不能混同。</p></section>",
+      "prerequisites": [
+        "comm-concept"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-003",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-entropy",
+      "chapter": "comm-c1",
+      "title": "自信息与平均信息量",
+      "summary": "概率越小的事件越意外；长期平均需要按概率加权。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>概率越小的事件越意外；长期平均需要按概率加权。</p></section><section><h2>定义与条件</h2><p>\\(I(x)=-\\log_2p(x),\\quad H(X)=-\\sum_xp(x)\\log_2p(x)\\)。零概率项按极限取 0。</p></section><section><h2>完整例题</h2><p>概率为 1/8 的消息自信息为 3 bit。等概率 M 种符号的熵为 log₂M。</p></section><section><h2>容易混淆的地方</h2><p>信息量不评价语义重要性；非等概率时不能直接用 log₂M。</p></section>",
+      "prerequisites": [
+        "comm-system"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-003",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-rate",
+      "chapter": "comm-c1",
+      "title": "码元速率与信息速率",
+      "summary": "每秒发出多少个波形状态，与每秒传递多少比特信息，需要分别计数。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>每秒发出多少个波形状态，与每秒传递多少比特信息，需要分别计数。</p></section><section><h2>定义与条件</h2><p>\\(R_s=1/T_s\\)，单位 Baud；等概率 M 进制固定映射下 \\(R_b=R_s\\log_2M\\)；独立非等概率源平均速率为 \\(rH(X)\\)。</p></section><section><h2>完整例题</h2><p>四进制 1200 Baud，每码元 2 bit，编码比特率为 2400 bit/s。</p></section><section><h2>容易混淆的地方</h2><p>B 在本课件中表示 baud，不是 Byte；一个字母用两个脉冲时字母速率是脉冲速率的一半。</p></section>",
+      "prerequisites": [
+        "comm-entropy"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-003",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-efficiency",
+      "chapter": "comm-c1",
+      "title": "频带利用率与差错率",
+      "summary": "系统既要传得快，也要足够可靠；速率和带宽的计量口径必须一致。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>系统既要传得快，也要足够可靠；速率和带宽的计量口径必须一致。</p></section><section><h2>定义与条件</h2><p>\\(\\eta_b=R_b/B\\)，单位 bit/(s·Hz)；码元差错率 \\(P_e=N_{se}/N_s\\)，误比特率 \\(P_b=N_{be}/N_b\\)。</p></section><section><h2>完整例题</h2><p>2000 bit/s 占用 1000 Hz 时，频带利用率为 2 bit/(s·Hz)。</p></section><section><h2>容易混淆的地方</h2><p>只知道错误码元数一般不能推出误比特率；分子与分母必须统计同一种对象。</p></section>",
+      "prerequisites": [
+        "comm-rate"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-003",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-models",
+      "chapter": "comm-c3",
+      "title": "有线、无线与恒参、随参信道",
+      "summary": "媒质、系统边界与参数随时间变化，是三种不同的分类依据。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>媒质、系统边界与参数随时间变化，是三种不同的分类依据。</p></section><section><h2>定义与条件</h2><p>线性信道可写为 \\(r(t)=s(t)*h(t)+n(t)\\)。恒参模型的参数固定；随参模型中增益、时延可能随时间变化。</p></section><section><h2>完整例题</h2><p>若仅有固定增益 0.5 和固定延迟，输入幅度为 4 时输出幅度为 2。</p></section><section><h2>容易混淆的地方</h2><p>随参不是“输入为随机信号”的同义词；有线和恒参也不是严格等同。</p></section>",
+      "prerequisites": [
+        "comm-efficiency"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-004",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-distortion",
+      "chapter": "comm-c3",
+      "title": "线性失真与均衡",
+      "summary": "不同频率受到不同衰减或时延，会使原波形改变并形成码间串扰。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>不同频率受到不同衰减或时延，会使原波形改变并形成码间串扰。</p></section><section><h2>定义与条件</h2><p>无失真传输在工作带内满足 \\(H(\\omega)=K e^{-j\\omega t_d}\\)：幅度恒定、相位线性、群时延恒定。</p></section><section><h2>完整例题</h2><p>3 个样本的固定延迟只平移序列；平坦增益为 2 时，幅度 1 的信号变为 2。</p></section><section><h2>容易混淆的地方</h2><p>相位线性不意味着相位处处为零；均衡不能把任意噪声完全消除。</p></section>",
+      "prerequisites": [
+        "comm-models"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-004",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-multipath",
+      "chapter": "comm-c3",
+      "title": "双径衰落与相关带宽",
+      "summary": "直射与反射可能相长或抵消。时延差越大，频率响应起伏越密。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>直射与反射可能相长或抵消。时延差越大，频率响应起伏越密。</p></section><section><h2>定义与条件</h2><p>等幅双径模型 \\(H(f)=1+e^{-j2\\pi f\\tau}\\)；零点 \\(f=(2k+1)/(2\\tau)\\)，峰值 \\(f=k/\\tau\\)。</p></section><section><h2>完整例题</h2><p>时差 1 ms 时，第一个正频率零点为 500 Hz，相邻零点相差 1000 Hz。</p></section><section><h2>容易混淆的地方</h2><p>等幅且无额外相位的假设是完全抵消的条件；相关带宽只是与时延扩展相关的工程尺度。</p></section>",
+      "prerequisites": [
+        "comm-distortion"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-004",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-coherence",
+      "chapter": "comm-c3",
+      "title": "脉冲宽度与频率选择性衰落",
+      "summary": "码元足够长时，时延展宽相对较小；等价地，信号带宽相对相关带宽较窄。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>码元足够长时，时延展宽相对较小；等价地，信号带宽相对相关带宽较窄。</p></section><section><h2>定义与条件</h2><p>课件近似 \\(B_c\\approx1/\\Delta\\tau\\)，并取 \\(B_s\\approx(1/5\\sim1/3)B_c\\)。若 \\(B_s\\approx1/T_s\\)，则 \\(T_s\\approx(3\\sim5)\\Delta\\tau\\)。</p></section><section><h2>完整例题</h2><p>最大多径时差 2 μs 时，相关带宽约为 500 kHz，推荐码元宽度约 6～10 μs。</p></section><section><h2>容易混淆的地方</h2><p>工程定义和脉冲形状会改变常数；这不是适用于一切信道的精确恒等式。</p></section>",
+      "prerequisites": [
+        "comm-multipath"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-004",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-noise",
+      "chapter": "comm-c3",
+      "title": "噪声、功率谱与分贝",
+      "summary": "噪声功率与带宽有关，分贝只是功率比的对数表示。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>噪声功率与带宽有关，分贝只是功率比的对数表示。</p></section><section><h2>定义与条件</h2><p>功率信噪比 \\(\\gamma=S/N\\)，\\(\\gamma_{dB}=10\\log_{10}\\gamma\\)。双边白噪声谱密度为 N₀/2 时，理想低通带内噪声为 N₀B。</p></section><section><h2>完整例题</h2><p>30 dB 对应线性功率比 1000，而不是 30。</p></section><section><h2>容易混淆的地方</h2><p>幅度比的 20log 与功率比的 10log 不可混用；白噪声与高斯噪声描述不同性质。</p></section>",
+      "prerequisites": [
+        "comm-coherence"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-004",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "id": "comm-capacity",
+      "chapter": "comm-c3",
+      "title": "香农容量与所需带宽",
+      "summary": "容量是在给定带宽与噪声条件下可实现可靠传输的信息速率上限。",
+      "minutes": 10,
+      "html": "<section><h2>先建立直觉</h2><p>容量是在给定带宽与噪声条件下可实现可靠传输的信息速率上限。</p></section><section><h2>定义与条件</h2><p>带限加性高斯噪声模型下 \\(C=B\\log_2(1+S/N)\\)。反求 \\(S/N=2^{R/B}-1\\)。</p></section><section><h2>完整例题</h2><p>B=1000 Hz，线性信噪比为 3，则 C=1000log₂4=2000 bit/s。</p></section><section><h2>容易混淆的地方</h2><p>不能把 dB 数直接代入；取等号是理想极限，实际系统需要编码与实现裕量。</p></section>",
+      "prerequisites": [
+        "comm-noise"
+      ],
+      "sources": [
+        {
+          "document": "comm-doc-004",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "comm-concept-q1",
+      "lessonId": "comm-concept",
+      "kind": "number",
+      "prompt": "用高、低两种电平表示符号，共有几种状态？",
+      "options": [],
+      "answer": "2",
+      "tolerance": 0.0001,
+      "explanation": "用两种电压表示 0、1，承载信息的电压状态数为 2。"
+    },
+    {
+      "id": "comm-concept-q2",
+      "lessonId": "comm-concept",
+      "kind": "self",
+      "prompt": "说明“消息、信息和信号”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "消息是要表达的内容，信号是承载它的物理形式，信息是接收者得到的不确定性的消除。 未量化抽样信号的幅度仍可连续，不因时间抽样就成为数字信号。"
+    },
+    {
+      "id": "comm-system-q1",
+      "lessonId": "comm-system",
+      "kind": "number",
+      "prompt": "4 个等可能符号用等长二进制码表示，最少每符号多少 bit？",
+      "options": [],
+      "answer": "2",
+      "tolerance": 0.0001,
+      "explanation": "四个等可能符号用固定二进制字表示，每个字至少需 2 bit。"
+    },
+    {
+      "id": "comm-system-q2",
+      "lessonId": "comm-system",
+      "kind": "self",
+      "prompt": "说明“通信系统与编码模块”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "发送端把消息变成波形，信道使其衰减或受扰，接收端恢复消息。 译码应按与发送处理相配的逆序恢复；压缩编码与纠错编码不能混同。"
+    },
+    {
+      "id": "comm-entropy-q1",
+      "lessonId": "comm-entropy",
+      "kind": "number",
+      "prompt": "概率为 1/8 的消息，自信息是多少 bit？",
+      "options": [],
+      "answer": "3",
+      "tolerance": 0.0001,
+      "explanation": "概率为 1/8 的消息自信息为 3 bit。等概率 M 种符号的熵为 log₂M。"
+    },
+    {
+      "id": "comm-entropy-q2",
+      "lessonId": "comm-entropy",
+      "kind": "self",
+      "prompt": "说明“自信息与平均信息量”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "概率越小的事件越意外；长期平均需要按概率加权。 信息量不评价语义重要性；非等概率时不能直接用 log₂M。"
+    },
+    {
+      "id": "comm-rate-q1",
+      "lessonId": "comm-rate",
+      "kind": "number",
+      "prompt": "等概率四进制系统为 1200 Baud，比特率是多少 bit/s？",
+      "options": [],
+      "answer": "2400",
+      "tolerance": 0.0001,
+      "explanation": "四进制 1200 Baud，每码元 2 bit，编码比特率为 2400 bit/s。"
+    },
+    {
+      "id": "comm-rate-q2",
+      "lessonId": "comm-rate",
+      "kind": "self",
+      "prompt": "说明“码元速率与信息速率”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "每秒发出多少个波形状态，与每秒传递多少比特信息，需要分别计数。 B 在本课件中表示 baud，不是 Byte；一个字母用两个脉冲时字母速率是脉冲速率的一半。"
+    },
+    {
+      "id": "comm-efficiency-q1",
+      "lessonId": "comm-efficiency",
+      "kind": "number",
+      "prompt": "2000 bit/s、1000 Hz，频带利用率的数值是多少？",
+      "options": [],
+      "answer": "2",
+      "tolerance": 0.0001,
+      "explanation": "2000 bit/s 占用 1000 Hz 时，频带利用率为 2 bit/(s·Hz)。"
+    },
+    {
+      "id": "comm-efficiency-q2",
+      "lessonId": "comm-efficiency",
+      "kind": "self",
+      "prompt": "说明“频带利用率与差错率”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "系统既要传得快，也要足够可靠；速率和带宽的计量口径必须一致。 只知道错误码元数一般不能推出误比特率；分子与分母必须统计同一种对象。"
+    },
+    {
+      "id": "comm-models-q1",
+      "lessonId": "comm-models",
+      "kind": "number",
+      "prompt": "固定增益为 0.5，输入幅度为 4，输出幅度是多少？",
+      "options": [],
+      "answer": "2",
+      "tolerance": 0.0001,
+      "explanation": "若仅有固定增益 0.5 和固定延迟，输入幅度为 4 时输出幅度为 2。"
+    },
+    {
+      "id": "comm-models-q2",
+      "lessonId": "comm-models",
+      "kind": "self",
+      "prompt": "说明“有线、无线与恒参、随参信道”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "媒质、系统边界与参数随时间变化，是三种不同的分类依据。 随参不是“输入为随机信号”的同义词；有线和恒参也不是严格等同。"
+    },
+    {
+      "id": "comm-distortion-q1",
+      "lessonId": "comm-distortion",
+      "kind": "number",
+      "prompt": "无失真模型固定增益 2，输入幅度 1，输出幅度多少？",
+      "options": [],
+      "answer": "2",
+      "tolerance": 0.0001,
+      "explanation": "3 个样本的固定延迟只平移序列；平坦增益为 2 时，幅度 1 的信号变为 2。"
+    },
+    {
+      "id": "comm-distortion-q2",
+      "lessonId": "comm-distortion",
+      "kind": "self",
+      "prompt": "说明“线性失真与均衡”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "不同频率受到不同衰减或时延，会使原波形改变并形成码间串扰。 相位线性不意味着相位处处为零；均衡不能把任意噪声完全消除。"
+    },
+    {
+      "id": "comm-multipath-q1",
+      "lessonId": "comm-multipath",
+      "kind": "number",
+      "prompt": "等幅双径时差为 1 ms，第一个正频率衰落零点是多少 Hz？",
+      "options": [],
+      "answer": "500",
+      "tolerance": 0.0001,
+      "explanation": "时差 1 ms 时，第一个正频率零点为 500 Hz，相邻零点相差 1000 Hz。"
+    },
+    {
+      "id": "comm-multipath-q2",
+      "lessonId": "comm-multipath",
+      "kind": "self",
+      "prompt": "说明“双径衰落与相关带宽”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "直射与反射可能相长或抵消。时延差越大，频率响应起伏越密。 等幅且无额外相位的假设是完全抵消的条件；相关带宽只是与时延扩展相关的工程尺度。"
+    },
+    {
+      "id": "comm-coherence-q1",
+      "lessonId": "comm-coherence",
+      "kind": "number",
+      "prompt": "按 Bc≈1/Δτ，Δτ=2 μs 时 Bc 是多少 Hz？",
+      "options": [],
+      "answer": "500000",
+      "tolerance": 0.0001,
+      "explanation": "最大多径时差 2 μs 时，相关带宽约为 500 kHz，推荐码元宽度约 6～10 μs。"
+    },
+    {
+      "id": "comm-coherence-q2",
+      "lessonId": "comm-coherence",
+      "kind": "self",
+      "prompt": "说明“脉冲宽度与频率选择性衰落”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "码元足够长时，时延展宽相对较小；等价地，信号带宽相对相关带宽较窄。 工程定义和脉冲形状会改变常数；这不是适用于一切信道的精确恒等式。"
+    },
+    {
+      "id": "comm-noise-q1",
+      "lessonId": "comm-noise",
+      "kind": "number",
+      "prompt": "功率信噪比 30 dB 对应线性比多少？",
+      "options": [],
+      "answer": "1000",
+      "tolerance": 0.0001,
+      "explanation": "30 dB 对应线性功率比 1000，而不是 30。"
+    },
+    {
+      "id": "comm-noise-q2",
+      "lessonId": "comm-noise",
+      "kind": "self",
+      "prompt": "说明“噪声、功率谱与分贝”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "噪声功率与带宽有关，分贝只是功率比的对数表示。 幅度比的 20log 与功率比的 10log 不可混用；白噪声与高斯噪声描述不同性质。"
+    },
+    {
+      "id": "comm-capacity-q1",
+      "lessonId": "comm-capacity",
+      "kind": "number",
+      "prompt": "带宽 1000 Hz、线性信噪比 3，香农容量是多少 bit/s？",
+      "options": [],
+      "answer": "2000",
+      "tolerance": 0.0001,
+      "explanation": "B=1000 Hz，线性信噪比为 3，则 C=1000log₂4=2000 bit/s。"
+    },
+    {
+      "id": "comm-capacity-q2",
+      "lessonId": "comm-capacity",
+      "kind": "self",
+      "prompt": "说明“香农容量与所需带宽”的定义、适用条件和一个常见误区。",
+      "options": [],
+      "answer": "对照讲解中的定义与条件、例题和易错点自评。",
+      "explanation": "容量是在给定带宽与噪声条件下可实现可靠传输的信息速率上限。 不能把 dB 数直接代入；取等号是理想极限，实际系统需要编码与实现裕量。"
+    }
+  ],
+  "coverage": [
+    {
+      "document": "comm-doc-003",
+      "page": 1,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 2,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 3,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 4,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 5,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 6,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 7,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 8,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 9,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 10,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 11,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 12,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 13,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 14,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 15,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 16,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 17,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 18,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 19,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 20,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 21,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 22,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 23,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 24,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 25,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 26,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 27,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 28,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 29,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 30,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 31,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 32,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 33,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 34,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 35,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 36,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 37,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 38,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 39,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 40,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 41,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 42,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 43,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 44,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 45,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 46,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 47,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 48,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 49,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 50,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 51,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 52,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 53,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 54,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 55,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 56,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 57,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 58,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-003",
+      "page": 59,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 1,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 2,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 3,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 4,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 5,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 6,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 7,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-002",
+      "page": 8,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-008",
+      "page": 1,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-007",
+      "page": 1,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-007",
+      "page": 2,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-007",
+      "page": 3,
+      "lessons": [
+        "comm-concept",
+        "comm-system",
+        "comm-entropy",
+        "comm-rate",
+        "comm-efficiency"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 1,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 2,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 3,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 4,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 5,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 6,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 7,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 8,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 9,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 10,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 11,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 12,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 13,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 14,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 15,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 16,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 17,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 18,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 19,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 20,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 21,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 22,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 23,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 24,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 25,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 26,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 27,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 28,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 29,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 30,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 31,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 32,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 33,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 34,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 35,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 36,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 37,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 38,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 39,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 40,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 41,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 42,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 43,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 44,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 45,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 46,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 47,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 48,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 49,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 50,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 51,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 52,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 53,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 54,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 55,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 56,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 57,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 58,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 59,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 60,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 61,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 62,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-004",
+      "page": 63,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "课件 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-001",
+      "page": 1,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-001",
+      "page": 2,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-001",
+      "page": 3,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-001",
+      "page": 4,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-001",
+      "page": 5,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-001",
+      "page": 6,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "笔记 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-006",
+      "page": 1,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-005",
+      "page": 1,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-005",
+      "page": 2,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-005",
+      "page": 3,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    },
+    {
+      "document": "comm-doc-005",
+      "page": 4,
+      "lessons": [
+        "comm-models",
+        "comm-distortion",
+        "comm-multipath",
+        "comm-coherence",
+        "comm-noise",
+        "comm-capacity"
+      ],
+      "kind": "作业 · 章节级关联，完整内容见原页"
+    }
+  ]
+}

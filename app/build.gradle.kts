@@ -1,3 +1,5 @@
+import java.io.File
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -11,8 +13,8 @@ android {
         applicationId = "cn.selfstudy.information"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "0.2.0"
+        versionCode = 4
+        versionName = "0.3.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures { compose = true }
@@ -25,6 +27,11 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
         unitTests.all {
+            // Keep Robolectric's lock file inside the build directory; reuse the existing SDK cache.
+            val testHome = layout.buildDirectory.dir("robolectric-home").get().asFile
+            it.doFirst { testHome.mkdirs() }
+            it.systemProperty("user.home", testHome.absolutePath)
+            it.systemProperty("maven.repo.local", File(System.getenv("USERPROFILE") ?: System.getProperty("user.home"), ".m2/repository").absolutePath)
             it.systemProperty("robolectric.dependency.repo.url", "https://repo.maven.apache.org/maven2")
         }
     }

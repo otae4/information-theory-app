@@ -21,7 +21,7 @@ fun HomeworkScreen(course: Course, progress: List<Progress>, onProblem: (String)
         item {
             Text("课程作业", style=MaterialTheme.typography.headlineSmall, fontWeight=FontWeight.Bold)
             Text(course.homeworkTitle, Modifier.padding(top=12.dp), style=MaterialTheme.typography.titleLarge)
-            Text("4 道大题 · 每题 25 分 · 已完成 ${course.homework.count { it.id in completed }}/4 题", Modifier.padding(top=8.dp))
+            Text("${course.homework.size} 道大题 · ${if(course.homework.all { it.points==25 }) "每题 25 分" else "按原作业顺序"} · 已完成 ${course.homework.count { it.id in completed }}/${course.homework.size} 题", Modifier.padding(top=8.dp))
         }
         item { Text(course.homeworkChapterNote) }
         item { Text("先独立完成，再展开详解核对。作业单独记录完成状态，不加入随机练习、错题本或复习排期。") }
@@ -33,7 +33,7 @@ fun HomeworkScreen(course: Course, progress: List<Progress>, onProblem: (String)
                     Card(onClick={onProblem(problem.id)}, modifier=Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(20.dp), verticalArrangement=Arrangement.spacedBy(8.dp)) {
                             Text("第${problem.number}题 · ${problem.title}", fontWeight=FontWeight.SemiBold)
-                            Text("${problem.points} 分 · ${if(problem.id in completed) "已完成" else "待完成"}")
+                            Text("${problem.assignment} · ${if(problem.points>0) "${problem.points} 分 · " else ""}${if(problem.id in completed) "已完成" else "待完成"}")
                             if (problem.relatedChapters.isNotEmpty()) Text("同时关联："+problem.relatedChapters.joinToString { id -> course.chapters.first { it.id==id }.title })
                         }
                     }
@@ -47,7 +47,7 @@ fun HomeworkScreen(course: Course, progress: List<Progress>, onProblem: (String)
 @Composable
 fun HomeworkDetailScreen(problem: HomeworkProblem, course: Course, complete: Boolean,
                          onComplete: suspend (Boolean) -> Unit, onLesson: (String) -> Unit,
-                         onProblem: (String) -> Unit) {
+                         onProblem: (String) -> Unit, onSource:(SourceRef)->Unit) {
     var revealed by rememberSaveable(problem.id) { mutableStateOf(false) }
     var busy by remember(problem.id) { mutableStateOf(false) }
     var error by remember(problem.id) { mutableStateOf<String?>(null) }
@@ -60,6 +60,10 @@ fun HomeworkDetailScreen(problem: HomeworkProblem, course: Course, complete: Boo
         }
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal=16.dp), horizontalArrangement=Arrangement.spacedBy(8.dp)) {
             problem.lessons.forEach { id -> TextButton(onClick={onLesson(id)}) { Text("讲解 · ${course.lessonById.getValue(id).title}") } }
+        }
+        if(problem.source!=null || problem.solution!=null) Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal=16.dp)) {
+            problem.source?.let { s -> TextButton(onClick={onSource(s)}) { Text("查看原题与图表") } }
+            problem.solution?.let { s -> TextButton(onClick={onSource(s)}) { Text("查看完整原始详解") } }
         }
         FormulaReader(problem.promptHtml + if(revealed) problem.solutionHtml else "", Modifier.fillMaxWidth().weight(1f))
         if (error!=null) Text(error!!, Modifier.padding(horizontal=16.dp), color=MaterialTheme.colorScheme.error)

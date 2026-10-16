@@ -32,5 +32,5 @@ $sdkSetting = 'sdk.dir=' + $sdk.Replace('\','/')
 [IO.File]::WriteAllText((Join-Path $project 'local.properties'), $sdkSetting, [Text.UTF8Encoding]::new($false))
 $tasks = @(':app:assembleDebug', ':app:testDebugUnitTest', ':app:lintDebug')
 if ($DeviceTests) { $tasks += ':app:connectedDebugAndroidTest' }
-& $gradle -p $project @tasks --console=plain
+& $gradle -p $project @tasks --no-daemon --console=plain
 if ($LASTEXITCODE -ne 0) { throw ('Gradle failed: ' + $LASTEXITCODE) }

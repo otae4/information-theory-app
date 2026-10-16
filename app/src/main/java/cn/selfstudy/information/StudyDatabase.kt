@@ -24,6 +24,7 @@ interface StudyDao {
     @Query("SELECT * FROM progress") fun observeProgress(): Flow<List<Progress>>
     @Query("SELECT * FROM reviews") fun observeReviews(): Flow<List<Review>>
     @Query("SELECT COUNT(*) FROM attempts") fun observeAttemptCount(): Flow<Int>
+    @Query("SELECT * FROM attempts") fun observeAttempts(): Flow<List<Attempt>>
     @Query("SELECT * FROM progress") suspend fun progress(): List<Progress>
     @Query("SELECT * FROM reviews") suspend fun reviews(): List<Review>
     @Query("SELECT * FROM attempts ORDER BY id") suspend fun attempts(): List<Attempt>
