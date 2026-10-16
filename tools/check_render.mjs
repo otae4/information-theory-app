@@ -10,10 +10,12 @@ const bundled=process.env.CODEX_NODE_MODULES;
 const require=createRequire(bundled ? path.join(bundled,'package.json') : import.meta.url);
 const {chromium}=require('playwright');
 const course=JSON.parse(fs.readFileSync(path.join(assets,'course.json'),'utf8'));
-const expectedFormulas=course.lessons.reduce((sum,l)=>sum+(l.html.match(/\\\(/g)||[]).length,0);
+const homework=JSON.parse(fs.readFileSync(path.join(assets,'homework.json'),'utf8'));
+const pages=[...course.lessons,...homework.problems.map(p=>({id:p.id,title:p.title,html:p.promptHtml+p.solutionHtml}))];
+const expectedFormulas=pages.reduce((sum,l)=>sum+(l.html.match(/\\\(/g)||[]).length,0);
 const source=fs.readFileSync(path.join(project,'app/src/main/java/cn/selfstudy/information/Readers.kt'),'utf8');
 const template=source.split('internal fun readerHtml(body: String) = """')[1].split('"""')[0].trim();
-const pageHtml=template.replace('$body',course.lessons.map(l=>`<h1 id="${l.id}">${l.title}</h1>${l.html}`).join(''));
+const pageHtml=template.replace('$body',pages.map(l=>`<h1 id="${l.id}">${l.title}</h1>${l.html}`).join(''));
 const output=path.resolve(project,'../build-content/visual-check');
 fs.mkdirSync(output,{recursive:true});
 const server=http.createServer((req,res)=>{
@@ -44,6 +46,12 @@ try {
         throw Error(JSON.stringify({result,errors,remote}));
     await page.locator('#entropy-mean').scrollIntoViewIfNeeded();
     await page.screenshot({path:path.join(output,'course-phone.png')});
+    for(const problem of homework.problems) {
+        await page.locator(`#${problem.id}`).scrollIntoViewIfNeeded();
+        await page.screenshot({path:path.join(output,`${problem.id}-phone.png`)});
+    }
+    await page.getByRole('heading',{name:'4. 点互信息',exact:true}).scrollIntoViewIfNeeded();
+    await page.screenshot({path:path.join(output,'homework-solution-phone.png')});
     fs.writeFileSync(path.join(output,'render-report.json'),JSON.stringify({result,errors,remote},null,2));
     console.log('PASS: '+JSON.stringify(result)+', no external requests.');
 } finally {await browser?.close();await new Promise(resolve=>server.close(resolve));}

@@ -31,6 +31,13 @@ class StudyModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    suspend fun completeHomework(id: String, completed: Boolean) {
+        require(id in course.homeworkById)
+        db.withTransaction {
+            db.dao().saveProgress(Progress(id, completed, System.currentTimeMillis()))
+        }
+    }
+
     suspend fun answer(question: Question, correct: Boolean, response: String, variant: String) {
         db.withTransaction {
             val today = LocalDate.now().toEpochDay()

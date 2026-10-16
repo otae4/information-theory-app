@@ -62,7 +62,7 @@ fun FormulaReader(html: String, modifier: Modifier = Modifier) {
 internal fun readerHtml(body: String) = """
 <!doctype html><html lang="zh-CN"><head><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'">
-<style>body{margin:0;padding:8px 20px 32px;background:#f7f8fa;color:#20323b;font:17px/1.9 sans-serif;overflow-wrap:break-word}h2{font-size:19px;line-height:1.5;color:#11695f;margin:0 0 12px}p{margin:0}section{background:white;border:1px solid #e3e9e9;border-radius:16px;padding:20px;margin:10px 0 16px}mjx-container{display:inline-block!important;vertical-align:middle;overflow-x:auto;overflow-y:hidden;max-width:100%;padding:4px 0}a{color:#11695f}</style>
+<style>body{margin:0;padding:8px 20px 32px;background:#f7f8fa;color:#20323b;font:17px/1.9 sans-serif;overflow-wrap:break-word}h2{font-size:19px;line-height:1.5;color:#11695f;margin:0 0 12px}p{margin:0}section{background:white;border:1px solid #e3e9e9;border-radius:16px;padding:20px;margin:10px 0 16px}.table-scroll{max-width:100%;overflow-x:auto}table{border-collapse:collapse;white-space:nowrap;font-size:15px}th,td{padding:6px 10px;border:1px solid #b8c9c6;text-align:center}ol{padding-left:24px}mjx-container{display:inline-block!important;vertical-align:middle;overflow-x:auto;overflow-y:hidden;max-width:100%;padding:4px 0}a{color:#11695f}</style>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'local'},options:{enableMenu:false}};</script>
 <script defer src="mathjax/tex-svg-full.js"></script></head><body>$body</body></html>
 """.trimIndent()

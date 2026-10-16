@@ -16,10 +16,24 @@ data class Question(
 data class Chapter(val id: String, val title: String, val subtitle: String)
 data class Document(val id: String, val title: String, val asset: String, val pages: Int)
 data class CoveragePage(val document: String, val page: Int, val lessons: List<String>, val kind: String)
+data class HomeworkProblem(
+    val id: String, val number: Int, val title: String, val chapter: String,
+    val relatedChapters: List<String>, val points: Int, val lessons: List<String>,
+    val promptHtml: String, val solutionHtml: String
+)
 
 class Course(context: Context) {
     private val json = JSONObject(context.assets.open("course.json").bufferedReader().use { it.readText() })
-    val version = json.getInt("version")
+    private val homeworkJson = JSONObject(context.assets.open("homework.json").bufferedReader().use { it.readText() })
+    val version = maxOf(json.getInt("version"), homeworkJson.getInt("courseVersion"))
+    val homeworkTitle = homeworkJson.getString("title")
+    val homeworkChapterNote = homeworkJson.getString("chapterNote")
+    val homeworkSources = homeworkJson.getJSONArray("sources").objects().map { it.getString("name") }
+    val homework = homeworkJson.getJSONArray("problems").objects().map {
+        HomeworkProblem(it.getString("id"), it.getInt("number"), it.getString("title"), it.getString("chapter"),
+            it.getJSONArray("relatedChapters").strings(), it.getInt("points"), it.getJSONArray("lessons").strings(),
+            it.getString("promptHtml"), it.getString("solutionHtml"))
+    }
     val chapters = json.getJSONArray("chapters").objects().map {
         Chapter(it.getString("id"), it.getString("title"), it.getString("subtitle"))
     }
@@ -42,6 +56,8 @@ class Course(context: Context) {
     val lessonById = lessons.associateBy { it.id }
     val questionById = questions.associateBy { it.id }
     val documentById = documents.associateBy { it.id }
+    val homeworkById = homework.associateBy { it.id }
+    val progressIds = lessonById.keys + homeworkById.keys
 }
 
 internal fun org.json.JSONArray.objects() = (0 until length()).map { getJSONObject(it) }

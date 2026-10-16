@@ -94,7 +94,7 @@ fun StudyApp(model: StudyModel = viewModel()) {
             backupBusy=true
             val result=withContext(Dispatchers.IO) { runCatching {
                 val text=context.contentResolver.openInputStream(uri)?.use(Backup::readLimited) ?: error("无法读取备份")
-                Backup.decode(text,course.lessonById.keys,course.questionById.keys,course.version)
+                Backup.decode(text,course.progressIds,course.questionById.keys,course.version)
             } }
             backupBusy=false
             result.onSuccess { importCandidate=it }.onFailure { message("备份未导入：${it.message}") }
@@ -104,14 +104,15 @@ fun StudyApp(model: StudyModel = viewModel()) {
     Scaffold(
         topBar={ TopAppBar(title={ Column {
             Text(when(parts[0]) { "lesson" -> course.lessonById[parts[1]]?.title ?: "学习"; "quiz" -> "专注练习";
+                "homework" -> "作业一 · 第${course.homeworkById[parts[1]]?.number}题";
                 "pdf" -> course.documentById[parts[1]]?.title ?: "资料"; "coverage" -> "资料覆盖清单"; "licenses" -> "关于与开源许可"; else -> "信息论自习室" },
                 style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)
             if(route=="home") Text("从理解开始，把知识留下来",style=MaterialTheme.typography.labelMedium,color=palette.primary)
         } }, navigationIcon={if(stack.size>1) TextButton(onClick={back()}){Text("返回")}},
             colors=TopAppBarDefaults.topAppBarColors(containerColor=palette.background)) },
         bottomBar={if(route=="home") NavigationBar(containerColor=Color.White) {
-            listOf("学习","练习","复习","资料").forEachIndexed { i,title ->
-                NavigationBarItem(selected=tab==i,onClick={tab=i},icon={ Text(listOf("学","练","习","册")[i],fontWeight=FontWeight.Bold) },label={Text(title)})
+            listOf("学习","练习","作业","复习","资料").forEachIndexed { i,title ->
+                NavigationBarItem(selected=tab==i,onClick={tab=i},icon={ Text(listOf("学","练","作","习","册")[i],fontWeight=FontWeight.Bold) },label={Text(title)})
             }
         }}, snackbarHost={SnackbarHost(snack)},containerColor=palette.background
     ) { padding ->
@@ -120,8 +121,9 @@ fun StudyApp(model: StudyModel = viewModel()) {
                 "home" -> when(tab) {
                     0 -> LearnScreen(course,progress,reviews,attempts) { id -> model.openLesson(id); push("lesson|$id") }
                     1 -> PracticeScreen(course) { startQuiz(it) }
-                    2 -> ReviewScreen(course,reviews,onQuiz={startQuiz(it,true)},onLesson={model.openLesson(it);push("lesson|$it")})
-                    3 -> MaterialsScreen(course,backupBusy, onDocument={push("pdf|${it.id}|1")},onCoverage={push("coverage")},onAbout={push("licenses")},
+                    2 -> HomeworkScreen(course,progress) { push("homework|$it") }
+                    3 -> ReviewScreen(course,reviews,onQuiz={startQuiz(it,true)},onLesson={model.openLesson(it);push("lesson|$it")})
+                    4 -> MaterialsScreen(course,backupBusy, onDocument={push("pdf|${it.id}|1")},onCoverage={push("coverage")},onAbout={push("licenses")},
                         onExport={scope.launch {
                             backupBusy=true
                             val result=withContext(Dispatchers.IO){runCatching {
@@ -149,6 +151,12 @@ fun StudyApp(model: StudyModel = viewModel()) {
                             onNext={quizIndex++},onLesson={model.openLesson(question.lessonId);push("lesson|${question.lessonId}")}) }
                     } else QuizFinished(queue.size,onAgain={back();startQuiz(queue)},onDone={back()})
                 }
+                "homework" -> course.homeworkById[parts[1]]?.let { problem ->
+                    HomeworkDetailScreen(problem,course,progress.any { it.lessonId==problem.id && it.completed },
+                        onComplete={model.completeHomework(problem.id,it)},
+                        onLesson={model.openLesson(it);push("lesson|$it")},
+                        onProblem={stack=stack.dropLast(1)+"homework|$it"})
+                }
                 "pdf" -> course.documentById[parts[1]]?.let { PdfReader(it,parts[2].toInt(),Modifier.fillMaxSize()) }
                 "coverage" -> CoverageScreen(course,onDocument={doc,page->push("pdf|$doc|$page")},onLesson={model.openLesson(it);push("lesson|$it")})
                 "licenses" -> AboutScreen()
@@ -166,8 +174,9 @@ fun StudyApp(model: StudyModel = viewModel()) {
 @Composable
 private fun LearnScreen(course: Course, progress: List<Progress>, reviews: List<Review>, attempts: Int, onLesson:(String)->Unit) {
     var search by rememberSaveable { mutableStateOf("") }
-    val completed=progress.filter {it.completed}.map {it.lessonId}.toSet()
-    val last=progress.maxByOrNull {it.lastReadAt}?.lessonId ?: course.lessons.first().id
+    val lessonProgress=progress.filter {it.lessonId in course.lessonById}
+    val completed=lessonProgress.filter {it.completed}.map {it.lessonId}.toSet()
+    val last=lessonProgress.maxByOrNull {it.lastReadAt}?.lessonId ?: course.lessons.first().id
     LazyColumn(contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
         item { Card(colors=CardDefaults.cardColors(containerColor=Color(0xFF102F3A)),shape=RoundedCornerShape(22.dp)) {
             Column(Modifier.padding(22.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
@@ -176,7 +185,7 @@ private fun LearnScreen(course: Course, progress: List<Progress>, reviews: List<
                 LinearProgressIndicator(progress={completed.size.toFloat()/course.lessons.size},modifier=Modifier.fillMaxWidth(),color=Color(0xFF72DDD0),trackColor=Color(0xFF31525A))
                 Text("已完成 ${completed.size}/${course.lessons.size} 节 · 已练习 $attempts 次",color=Color.White)
                 Button(onClick={onLesson(last)},colors=ButtonDefaults.buttonColors(containerColor=Color(0xFF72DDD0),contentColor=Color(0xFF102F3A))) {
-                    Text(if(progress.isEmpty()) "从预备知识开始" else "继续：${course.lessonById[last]?.title}")
+                    Text(if(lessonProgress.isEmpty()) "从预备知识开始" else "继续：${course.lessonById[last]?.title}")
                 }
             }
         } }
@@ -398,7 +407,7 @@ private fun AboutScreen() {
     val context=androidx.compose.ui.platform.LocalContext.current
     val licenses=remember {context.assets.open("NOTICE.txt").bufferedReader().use{it.readText()}}
     LazyColumn(contentPadding=PaddingValues(20.dp),verticalArrangement=Arrangement.spacedBy(16.dp)) {
-        item {Text("信息论自习室 · 0.1.0",style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)}
+        item {Text("信息论自习室 · 0.2.0",style=MaterialTheme.typography.titleLarge,fontWeight=FontWeight.Bold)}
         item {Text("依据本地课件及《信息与编码理论基础》（万旺根、余小清）整理，并补充先修知识、例题与解析。课程采用统一符号与必要的原文勘误。原始资料完整保留，OCR 仅用于内容整理，不直接作为公式展示来源。")} 
         item {Text("本应用以个人离线学习为目的。公开分发前应另行核实教材和课件授权。当前课程属于初版讲解，原书的长推导请结合来源页阅读。")} 
         item {Text(licenses,style=MaterialTheme.typography.bodySmall)}
